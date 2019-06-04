@@ -1,0 +1,149 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Alunos
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  
+	<ion-list>
+		<ion-item-sliding *ngFor="let item of students">
+			<ion-item>
+				<ion-card>
+		 
+			      <ion-card-header text-center>
+			        <h1>{{ item.student.name }}</h1>
+			      </ion-card-header>
+			 
+			      <ion-card-content text-center>
+			      	<h2>Informações básicas do aluno</h2>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>Data de nascimento:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.birth }}</p>
+			        	</ion-col>
+			        </ion-row>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>Série de ingresso:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.grade }}</p>
+			        	</ion-col>
+			        </ion-row>
+			        <h2>Endereço do aluno</h2>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>CEP:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.zip }}</p>
+			        	</ion-col>
+			        </ion-row>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>Bairro:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.district }}</p>
+			        	</ion-col>
+			        </ion-row>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>Logradouro:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.street }}</p>
+			        	</ion-col>
+			        </ion-row>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>Número:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.number }}</p>
+			        	</ion-col>
+			        </ion-row>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>Complemento:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.complement }}</p>
+			        	</ion-col>
+			        </ion-row>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>Estado:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.state }}</p>
+			        	</ion-col>
+			        </ion-row>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>Cidade:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.city }}</p>
+			        	</ion-col>
+			        </ion-row>
+			        <h2>Informações da mãe</h2>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>Nome da mãe:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.motherName }}</p>
+			        	</ion-col>
+			        </ion-row>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>CPF da mãe:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.motherIP }}</p>
+			        	</ion-col>
+			        </ion-row>
+			        <ion-row>
+			        	<ion-col text-right>
+			        		<p>Dia preferencial para pagamento:</p>
+			        	</ion-col>
+			        	<ion-col text-left>
+			        		<p>{{ item.student.payday }}</p>
+			        	</ion-col>
+			        </ion-row>
+
+			      </ion-card-content>
+			    </ion-card>
+			</ion-item>
+			<ion-item-options>
+				<ion-row text-center>
+					<ion-col>
+						<button ion-button icon-left clear small (click)="editStudent(item);">
+							<ion-icon name="create"></ion-icon>
+							<div>Editar</div>
+						</button>
+					</ion-col>
+					<ion-col>
+						<button ion-button icon-left clear small (click)="removeStudent(item);">
+							<ion-icon name="trash"></ion-icon>
+							<div>Excluir</div>
+						</button>
+					</ion-col>
+				</ion-row>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+
+	<ion-fab bottom="" right="">
+		<button ion-fab color="primary" (click)="addStudent();">
+			<ion-icon name="add"></ion-icon>
+		</button>
+	</ion-fab>
+
+</ion-content>

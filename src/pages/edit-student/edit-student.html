@@ -1,0 +1,111 @@
+<!--
+  Generated template for the EditStudentPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>edit-student</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+	<ion-list>
+		<form>
+			<p>
+				Informações básicas do aluno
+			</p>
+			<ion-item>
+				<ion-label floating>Nome</ion-label>
+				<ion-input type='text' name='name' [(ngModel)]='model.name'></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>Data de nascimento</ion-label>
+				<ion-datetime displayFormat="DD MMM YYYY" name='birth' [(ngModel)]='model.birth'></ion-datetime>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>Série de ingresso</ion-label>
+				<ion-select cancelText='Cancelar' name='grade' [(ngModel)]='model.grade'>
+					<ion-option>1° ano</ion-option>
+					<ion-option>2° ano</ion-option>
+					<ion-option>3° ano</ion-option>
+					<ion-option>4° ano</ion-option>
+					<ion-option>5° ano</ion-option>
+					<ion-option>6° ano</ion-option>
+					<ion-option>7° ano</ion-option>
+					<ion-option>8° ano</ion-option>
+					<ion-option>9° ano</ion-option>
+				</ion-select>
+			</ion-item>
+
+			<p>
+				Endereço
+			</p>
+
+			<ion-item>
+				<ion-label floating>CEP</ion-label>
+				<ion-input type='text' name='zip' [(ngModel)]='model.zip' ></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>Logradouro</ion-label>
+				<ion-input type='text' name='street' [(ngModel)]='model.street'></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>Número</ion-label>
+				<ion-input type='number' min=1 name='number' [(ngModel)]='model.number'></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>Complemento</ion-label>
+				<ion-input type='text' name='complement' [(ngModel)]='model.complement'></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>Bairro</ion-label>
+				<ion-input type='text' name='district' [(ngModel)]='model.district'></ion-input>
+			</ion-item>
+			
+			<ion-item>
+				<ion-label floating>Estado</ion-label>
+				<ion-select cancelText='Cancelar' name='state' [(ngModel)]='model.state' (ionChange)='stateSelectOnChange();'>
+					<ion-option *ngFor="let state of statesList" [value]='state'>{{state}}</ion-option>
+				</ion-select>
+			</ion-item>
+			
+			<ion-item>
+				<ion-label floating>Cidade</ion-label>
+				<ion-select cancelText='Cancelar' disabled='{{selectCityDisabled}}' name='city' [(ngModel)]='model.city'>
+					<ion-option *ngFor='let city of citiesList' [value]='city'>{{city}}</ion-option>
+				</ion-select>
+			</ion-item>
+			
+			<p>
+				Informações da mãe
+			</p>
+
+			<ion-item>
+				<ion-label floating>Nome</ion-label>
+				<ion-input type='text' name='motherName' [(ngModel)]='model.motherName'></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>CPF</ion-label>
+				<ion-input type='text' name='motherIP' [(ngModel)]='model.motherIP'></ion-input>
+			</ion-item>
+
+			<ion-item>
+				<ion-label floating>Data preferencial para pagamento</ion-label>
+		    	<ion-input type="number" min=1 max=20 name='payday' [(ngModel)]='model.payday'></ion-input>
+		  	</ion-item>
+	  	</form>
+	</ion-list>	
+
+	<button ion-button block color="light" (click)="save()">Salvar</button>
+
+</ion-content>
