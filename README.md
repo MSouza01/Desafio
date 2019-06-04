@@ -1,5 +1,7 @@
 # Desafio
 
+PS.: Para alterar/deletar um cadastro, basta deslizar o card do aluno para a esquerda que os botões aparecem.
+
 commit 01:
 	- Repositório inicializado
 
