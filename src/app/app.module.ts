@@ -11,6 +11,7 @@ import { HomePage } from '../pages/home/home';
 import { IonicStorageModule } from '@ionic/storage';
 import { DatePipe } from '@angular/common';
 import { StudentProvider } from '../providers/student/student';
+import { ValidationProvider } from '../providers/validation/validation';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { StudentProvider } from '../providers/student/student';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DatePipe,
-    StudentProvider
+    StudentProvider,
+    ValidationProvider
   ]
 })
 export class AppModule {}

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { StudentProvider, Student } from '../../providers/student/student'
+import { ValidationProvider, Validation } from '../../providers/validation/validation'
 
 /**
  * Generated class for the EditStudentPage page.
@@ -21,8 +22,12 @@ export class EditStudentPage {
 	statesList: string[];
 	citiesList: string[];
 	selectCityDisabled: boolean;
+	validation: Validation;
+	errors: string;
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private studentProvider: StudentProvider, private toast: ToastController) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private studentProvider: StudentProvider, private validationProvider: ValidationProvider, private toast: ToastController, private alertCtrl: AlertController) {
+		this.validation = new Validation();
+		this.errors = '';
 		if(this.navParams.data.student && this.navParams.data.key) {
 			this.model = this.navParams.data.student;
 			this.key = this.navParams.data.key;	
@@ -169,22 +174,33 @@ export class EditStudentPage {
 	}
 
 	save() {
-		this.saveStudent()
-			.then(() => {
-				this.toast.create({
-					message: 'Aluno salvo',
-					duration: 3000,
-					position: 'bottom'
-				}).present();
-				this.navCtrl.pop();
-			})
-			.catch(() => {
-				this.toast.create({
-					message: 'Erro ao salvar o aluno',
-					duration: 3000,
-					position: 'bottom'
+		this.validation = this.validationProvider.validate(this.model);
+		console.log(this.validation);
+		if(this.validationProvider.isAllValid(this.validation)) {
+			this.saveStudent()
+				.then(() => {
+					this.toast.create({
+						message: 'Aluno salvo',
+						duration: 3000,
+						position: 'bottom'
+					}).present();
+					this.navCtrl.pop();
+				})
+				.catch(() => {
+					this.toast.create({
+						message: 'Erro ao salvar o aluno',
+						duration: 3000,
+						position: 'bottom'
+					});
 				});
-			});
+		} else {
+			this.showErrors();
+			this.alertCtrl.create({
+	          title: 'Formulário inválido',
+	          message: this.errors,
+	          buttons: ['OK']
+	        }).present();
+		}
 	}
 
 	private saveStudent() {
@@ -206,8 +222,8 @@ export class EditStudentPage {
 			this.selectCityDisabled = true;
 		}
 	}
-
-	stateSelectOnChange() {
+	
+	stateOnChange() {
 		this.citiesList = this.getCities(this.model.state);
 		console.log(this.citiesList);
 		this.selectCityDisabled = false;
@@ -222,13 +238,86 @@ export class EditStudentPage {
 	}
 
 	private getCities(state: string) {
-		let state: State;
 		for(let st of this.states) {
 			if(st.state == state) {
 				return st.cities;
 			}
 		}
 		return [];
+	}
+
+	private showError(errors: string[], maxLength: string) {
+		let str: string = '';
+
+		if(errors.includes('required field')) {
+			str += '- Campo obrigatório<br>';
+		} else {
+			if(errors.includes('max length')) {
+				str += '- Comprimento máximo '+maxLength+'<br>';
+			}
+			if(errors.includes('invalid')) {
+				str += '- Entrada inválida<br>';
+			}
+		}
+		str += '<br>';
+
+		return str;
+	}
+
+	private showErrors() {
+		this.errors = '';
+		if(!this.validationProvider.isValid(this.validation.name)) {
+			this.errors += 'Nome:<br>'
+			this.errors += this.showError(this.validation.name, '100');
+		}
+		if(!this.validationProvider.isValid(this.validation.birth)) {
+			this.errors += 'Data de nascimento:<br>'
+			this.errors += this.showError(this.validation.birth, null);
+		}
+		if(!this.validationProvider.isValid(this.validation.grade)) {
+			this.errors += 'Série de ingresso:<br>'
+			this.errors += this.showError(this.validation.grade, null);
+		}
+		if(!this.validationProvider.isValid(this.validation.zip)) {
+			this.errors += 'CEP:<br>'
+			this.errors += this.showError(this.validation.zip, null);
+		}
+		if(!this.validationProvider.isValid(this.validation.street)) {
+			this.errors += 'Logradouro:<br>'
+			this.errors += this.showError(this.validation.street, '120');
+		}
+		if(!this.validationProvider.isValid(this.validation.complement)) {
+			this.errors += 'Complemento:<br>'
+			this.errors += this.showError(this.validation.complement, '50');
+		}
+		if(!this.validationProvider.isValid(this.validation.district)) {
+			this.errors += 'Bairro:<br>'
+			this.errors += this.showError(this.validation.district, '100');
+		}
+		if(!this.validationProvider.isValid(this.validation.number)) {
+			this.errors += 'Número:<br>'
+			this.errors += this.showError(this.validation.number, null);
+		}
+		if(!this.validationProvider.isValid(this.validation.state)) {
+			this.errors += 'Estado:<br>'
+			this.errors += this.showError(this.validation.state, null);
+		}
+		if(!this.validationProvider.isValid(this.validation.city)) {
+			this.errors += 'Cidade:<br>'
+			this.errors += this.showError(this.validation.city, null);
+		}
+		if(!this.validationProvider.isValid(this.validation.motherName)) {
+			this.errors += 'Nome da mãe:<br>'
+			this.errors += this.showError(this.validation.motherName, '100');
+		}
+		if(!this.validationProvider.isValid(this.validation.motherID)) {
+			this.errors += 'CPF da mãe:<br>'
+			this.errors += this.showError(this.validation.motherID, null);
+		}
+		if(!this.validationProvider.isValid(this.validation.payday)) {
+			this.errors += 'Dia preferencial para pagamento:<br>'
+			this.errors += this.showError(this.validation.payday, null);
+		}
 	}
 
 }

@@ -62,6 +62,7 @@ export class Student {
 	grade: string;
 	zip: string;
 	street: string;
+	number: string;
 	complement: string;
 	district: string;
 	state: string;
@@ -69,8 +70,6 @@ export class Student {
 	motherName: string;
 	motherID: string;
 	payday: string;
-	state: string;
-	city: string;
 }
 
 export class StudentList {

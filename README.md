@@ -1,4 +1,4 @@
-#Desafio
+# Desafio
 
 commit 01:
 	- Repositório inicializado
@@ -21,6 +21,9 @@ commit 06:
 	- Passos feitos anteriormente refeitos (execto forms validation)
 	- Selects de cidade e estado populados corretamente
 
+commit 07:
+	- Validação de formulário refeita
+
 Progresso:
 
 O planejamento para criar a página foi feito lendo a documentação do Ionic v3, desde o tutorial até os componentes. A partir daí, foi decidido qual componente seria utilizado em cada funcionalidade da aplicação.
@@ -36,3 +39,5 @@ Para realizar a navegação para a nova página criada, foi acessada a página d
 A página de registro foi populada com o forms e os inputs correspondentes a cada campo. A verificação das entradas é feita com forms validation por meio de formgroup, foi utilizada a página https://www.joshmorony.com/advanced-forms-validation-in-ionic-2/ como guia. A validação dos campos estado e cidade foi iniciada com a variável 'states' que contém um objeto JSON com todos os estados brasileiros e suas respectivas cidades obtido do módulo br-cidades-estados (https://www.npmjs.com/package/br-cidades-estados).
 
 O projeto foi refeito do zero seguindo os passos da página http://www.fabricadecodigo.com/como-armazenar-dados-offline-com-ionic-storage/ para realizar o armazenamento dos alunos cadastrados. Essa página também foi utilizada como guia, juntamente com a documentação do ion-select para popular os selects de cidade e estado.
+
+A validação do formulário foi refeita manualmente, sem utilizar FormGroup, criando o ValidationProvider. Ao clicar em 'Salvar', as entradas são verificadas. Se forem todas válidas, o novo aluno é cadastrado/cadastro é alterado. Se houver algo inválido, é mostrado um alerta indicando ao usuário o que ele precisa corrigir. Não consegui fazer a indicação dos erros na própria página com ngIf.
